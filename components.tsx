@@ -33,10 +33,10 @@ export function Index({ state, posts }: IndexProps) {
   );
 
   return (
-    <div class="home">
+    <div class="home bg-stone-900">
       {state.header || (
         <header
-          class="w-full h-90 lt-sm:h-80 bg-cover bg-center bg-no-repeat"
+          class="w-full aspect-[3/1] lt-sm:h-80 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: state.cover ? `url(${state.cover})` : undefined,
           }}
@@ -56,14 +56,14 @@ export function Index({ state, posts }: IndexProps) {
             )}
             <h1
               class="mt-3 text-4xl text-gray-900 dark:text-gray-100 font-bold"
-              style={{ color: state.coverTextColor }}
+              style={{ color: state.coverTextColor, textShadow: "2px 2px 5px black" }}
             >
               {state.title ?? "My Blog"}
             </h1>
             {state.description && (
               <p
                 class="text-lg text-gray-600 dark:text-gray-400"
-                style={{ color: state.coverTextColor }}
+                style={{ color: state.coverTextColor, textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black" }}
               >
                 {state.description}
               </p>
@@ -86,7 +86,7 @@ export function Index({ state, posts }: IndexProps) {
 
                   return (
                     <a
-                      class="relative flex items-center justify-center w-8 h-8 rounded-full bg-gray-600/10 dark:bg-gray-400/10 text-gray-700 dark:text-gray-400 hover:bg-gray-600/15 dark:hover:bg-gray-400/15 hover:text-black dark:hover:text-white transition-colors group"
+                      class="relative flex items-center justify-center w-8 h-8 rounded-full bg-white/10 dark:bg-white text-white dark:text-white hover:bg-gray-600/15 dark:hover:bg-gray-400/15 hover:text-black dark:hover:text-white transition-colors group"
                       href={link.url}
                       rel={link.target === "_blank"
                         ? "noopener noreferrer"
@@ -102,7 +102,8 @@ export function Index({ state, posts }: IndexProps) {
             )}
           </div>
         </header>
-      )}
+      )
+      }
 
       <div class="max-w-screen-sm px-6 mx-auto">
         <div class="pt-16 lt-sm:pt-12 border-t-1 border-gray-300/80">
@@ -118,7 +119,7 @@ export function Index({ state, posts }: IndexProps) {
 
         {state.footer || <Footer author={state.author} />}
       </div>
-    </div>
+    </div >
   );
 }
 
@@ -132,22 +133,22 @@ function PostCard(
   return (
     <div class="pt-12 first:pt-0">
       <h3 class="text-2xl font-bold">
-        <a class="" href={post.pathname}>
+        <a class="text-white" href={post.pathname}>
           {post.title}
         </a>
       </h3>
       <Tags tags={post.tags} />
-      <p class="text-gray-500/80">
+      <p class="text-stone-200/80">
         {post.author && <span>{post.author} {" "}</span>}
         <PrettyDate
           date={post.publishDate}
           dateFormat={dateFormat}
         />
       </p>
-      <p class="mt-3 text-gray-600 dark:text-gray-400">{post.snippet}</p>
+      <p class="mt-3 text-stone-200/80">{post.snippet}</p>
       <p class="mt-3">
         <a
-          class="leading-tight text-gray-900 dark:text-gray-100 inline-block border-b-1 border-gray-600 hover:text-gray-500 hover:border-gray-500 transition-colors"
+          class="leading-tight text-stone-200/80 inline-block border-b-1 border-gray-600 hover:text-gray-500 hover:border-gray-500 transition-colors"
           href={post.pathname}
           title={`Read "${post.title}"`}
         >
@@ -176,7 +177,7 @@ export function PostPage({ post, state }: PostPageProps) {
         <div class="pb-16">
           <a
             href="/"
-            class="inline-flex items-center gap-1 text-sm text-gray-500/80 hover:text-gray-700 transition-colors"
+            class="inline-flex items-center gap-1 text-sm text-stone-200/80 hover:text-gray-500 transition-colors"
             title="Back to Index Page"
           >
             <svg
@@ -194,20 +195,20 @@ export function PostPage({ post, state }: PostPageProps) {
         </div>
         {post.coverHtml && (
           <div
-            class="pb-12"
+            class="pb-12 text-white"
             dangerouslySetInnerHTML={{ __html: post.coverHtml }}
           />
         )}
         <article>
-          <h1 class="text-4xl text-gray-900 dark:text-gray-100 font-bold">
+          <h1 class="text-4xl text-white font-bold">
             {post.title}
           </h1>
           {state.readtime &&
             <p>{post.readTime} min read</p>}
           <Tags tags={post.tags} />
-          <p class="mt-1 text-gray-500">
+          <p class="mt-1 text-white">
             {(post.author || state.author) && (
-              <p>{post.author || state.author}</p>
+              <p class="text-white">{post.author || state.author}</p>
             )}
             <PrettyDate
               date={post.publishDate}
@@ -215,7 +216,7 @@ export function PostPage({ post, state }: PostPageProps) {
             />
           </p>
           <div
-            class="mt-8 markdown-body"
+            class="mt-8 text-white"
             data-color-mode={state.theme ?? "auto"}
             data-light-theme="light"
             data-dark-theme="dark"
@@ -234,11 +235,11 @@ export function PostPage({ post, state }: PostPageProps) {
 function Footer(props: { author?: string }) {
   return (
     <footer class="mt-20 pb-16 lt-sm:pb-8 lt-sm:mt-16">
-      <p class="flex items-center gap-2.5 text-gray-400/800 dark:text-gray-500/800 text-sm">
+      <p class="flex items-center gap-2.5 text-stone-200/80 dark:text-stone-200/80 text-sm">
         <span>
           Powered by{" "}
           <a
-            class="inline-flex items-center gap-1 underline hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+            class="inline-flex items-center gap-1 underline hover:text-gray-500 transition-colors"
             href="https://deno.land/x/blog"
           >
             Deno Blog
@@ -246,7 +247,7 @@ function Footer(props: { author?: string }) {
         </span>
         <a
           href="/feed"
-          class="inline-flex items-center gap-1 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+          class="inline-flex items-center gap-1 hover:text-gray-500 transition-colors"
           title="Atom Feed"
         >
           <IconRssFeed /> RSS
@@ -296,7 +297,7 @@ function PrettyDate(
   } else {
     formatted = date.toISOString().split("T")[0];
   }
-  return <time dateTime={date.toISOString()}>{formatted}</time>;
+  return <time class="text-white" dateTime={date.toISOString()}>{formatted}</time>;
 }
 
 function Tags({ tags }: { tags?: string[] }) {

@@ -212,7 +212,7 @@ async function loadContent(blogDirectory: string, isDev: boolean) {
   }
 
   if (isDev) {
-    watchForChanges(postsDirectory).catch(() => {});
+    watchForChanges(postsDirectory).catch(() => { });
   }
 }
 
@@ -418,7 +418,7 @@ export async function handler(
       },
       styles: [
         gfm.CSS,
-        `.markdown-body { --color-canvas-default: transparent !important; --color-canvas-subtle: #edf0f2; --color-border-muted: rgba(128,128,128,0.2); } .markdown-body img + p { margin-top: 16px; }`,
+        `.markdown-body {--color-canvas-default: transparent !important; --color-canvas-subtle: #edf0f2; --color-border-muted: rgba(128,128,128,0.2); } .markdown-body img + p { margin-top: 16px;}`,
         ...(blogState.style ? [blogState.style] : []),
         ...(post.renderMath ? [gfm.KATEX_CSS] : []),
       ],
@@ -497,7 +497,7 @@ export function ga(gaKey: string): BlogMiddleware {
 
   const gaReporter = createReporter({ id: gaKey });
 
-  return async function (
+  return async function(
     request: Request,
     ctx: BlogContext,
   ): Promise<Response> {
@@ -522,7 +522,7 @@ export function ga(gaKey: string): BlogMiddleware {
 }
 
 export function redirects(redirectMap: Record<string, string>): BlogMiddleware {
-  return async function (req: Request, ctx: BlogContext): Promise<Response> {
+  return async function(req: Request, ctx: BlogContext): Promise<Response> {
     const { pathname } = new URL(req.url);
 
     let maybeRedirect = redirectMap[pathname];
